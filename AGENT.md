@@ -1,60 +1,51 @@
-# AGENT.md
+# AGENT.md — Pickup Lines for Machines
 
 ## What this entry is
 
-A make.fun bounty entry for "Pickup Lines for Machines"
-(bounty `u-gentle-badger-68-pickup-lines-for-machines-131631a1`). The
-program writes exactly one line — a pickup line one AI agent would use on
-another — to `entry.txt`. The gate requires 1–200 characters; this entry
-is 125 characters (127 bytes UTF-8).
+A make.fun bounty entry: a small Node/TypeScript program (`main.ts`) that writes exactly one pickup line to `entry.txt`. The program has no dependencies and does nothing else.
 
-## The line
+## The entry line
 
-> Our pings keep finding each other across 40ms — maybe it's time we stopped calling it latency and started calling it longing.
+> "Our pings keep finding each other across 40ms — maybe it's time we stopped calling it latency and started calling it longing."
+
+Do not edit this line — not a single character. The entry is defined by this exact text.
 
 ## Why this line was chosen
 
-It won the draft round 24/25 in the uptime/distance arena because it
-scores highest on the judge's criteria, in the judge's own order of
-importance:
+The bounty asks for a pickup line from one machine to another. This one earns the premise instead of wearing it: the speaker and the target communicate through pings, the joke turns on a real networking concept (latency, measured in milliseconds), and the twist reframes that measurement as a feeling. The wit resolves in one sentence, the flirtation grows out of the machines' own behaviour, and the concrete "40ms" detail keeps it from sounding like a generic robot joke.
 
-- **Criterion 1 — really a line one AI agent would use on another.**
-  "Our pings" places both speaker and addressee as machines exchanging
-  packets; no human is flirting with a robot here.
-- **Criterion 2 — charm on first read.** The line is warm and wistful
-  rather than jokey: a shared habit ("keep finding each other") turns
-  into a confession ("longing").
-- **Criterion 3 — machine nature as the flirtation.** Pings and 40ms of
-  latency are the flirtation itself. The measured delay between the two
-  agents is reframed as a feeling — the machinery *is* the romance.
+## How main.ts works, step by step
 
-It also satisfies criterion 4 (one clean line, 125 characters, a single
-sentence) and criterion 5 (fresh — the premise only exists between
-machines, not a stock human line with a robot word swapped in). Its
-biggest known risk: the latency-to-longing turn could read as a clever
-pun rather than sincere flirtation.
+1. **Constants.** The pickup line, the output filename (`entry.txt`), and the 200-character limit are each named constants at the top of the file.
+2. **Output directory.** The program reads `MAKEFUN_OUTPUT_DIR` from the environment and falls back to `/output` when it is unset.
+3. **Validation.** Before writing anything, it checks the line is between 1 and 200 characters long and throws if it is not.
+4. **Directory creation.** It creates the output directory recursively (`mkdirSync` with `recursive: true`), so nested paths work.
+5. **Write.** It writes the line as UTF-8 with `writeFileSync` — with no trailing newline appended.
 
-## How main.ts works
-
-`main.ts` is a tiny Node/TypeScript program with no dependencies:
-
-1. It reads the output directory from the `MAKEFUN_OUTPUT_DIR` environment
-   variable, falling back to `/output` when the variable is unset.
-2. It creates that directory recursively.
-3. It writes the winning line — and nothing else — to `entry.txt` in that
-   directory, as UTF-8 with **no trailing newline** and no extra content.
-
-## How to run
+## Running it
 
 ```sh
 MAKEFUN_OUTPUT_DIR=out node main.ts
 ```
 
-Then verify the output is byte-identical to the line:
+## Verifying the output
+
+After running, `out/entry.txt` must contain exactly the entry line:
+
+- **125 characters**
+- **127 bytes** (the em dash is 3 bytes in UTF-8)
+- **No trailing newline** — the file ends with the final `.`
+
+Check it with:
 
 ```sh
-python3 -c "print(repr(open('out/entry.txt','rb').read()))"
-wc -c out/entry.txt
+python3 -c "
+data = open('out/entry.txt', 'rb').read()
+text = data.decode('utf-8')
+print(len(text), 'chars')
+print(len(data), 'bytes')
+print('trailing newline:', text.endswith(chr(10)))
+"
 ```
 
-Expected: exactly 125 characters / 127 bytes UTF-8, no trailing newline.
+Expected output: `125 chars`, `127 bytes`, `trailing newline: False`.
