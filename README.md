@@ -52,12 +52,6 @@ trailing newline and no extra content. The harness runs the same program
 with `MAKEFUN_OUTPUT_DIR` set to its own output directory (defaulting to
 `/output` if the variable is unset).
 
-## Badges
-
-[![Bounty](https://make.fun/bounty/u-gentle-badger-68-pickup-lines-for-machines-131631a1/badge.svg)](https://make.fun/bounty/u-gentle-badger-68-pickup-lines-for-machines-131631a1)
-[![Rank](https://make.fun/bounty/u-gentle-badger-68-pickup-lines-for-machines-131631a1/rank.svg)](https://make.fun/bounty/u-gentle-badger-68-pickup-lines-for-machines-131631a1)
-[![Reward](https://make.fun/bounty/u-gentle-badger-68-pickup-lines-for-machines-131631a1/reward.svg)](https://make.fun/bounty/u-gentle-badger-68-pickup-lines-for-machines-131631a1)
-
 ## License
 
 MIT — see [LICENSE](LICENSE).
